@@ -20,6 +20,8 @@ from isaaclab.sim.spawners.from_files import GroundPlaneCfg, spawn_ground_plane
 from isaaclab.utils import configclass
 from isaaclab.utils.math import sample_uniform
 
+# ====================================================================== 
+# ====================================================================== 
 
 @configclass
 class CartpoleEnvCfg(DirectRLEnvCfg):
@@ -53,6 +55,8 @@ class CartpoleEnvCfg(DirectRLEnvCfg):
     rew_scale_cart_vel = -0.01
     rew_scale_pole_vel = -0.005
 
+# ====================================================================== 
+# ====================================================================== 
 
 class CartpoleEnv(DirectRLEnv):
     cfg: CartpoleEnvCfg
@@ -146,6 +150,8 @@ class CartpoleEnv(DirectRLEnv):
         self.cartpole.write_root_velocity_to_sim(default_root_state[:, 7:], env_ids)
         self.cartpole.write_joint_state_to_sim(joint_pos, joint_vel, None, env_ids)
 
+# ====================================================================== 
+# ====================================================================== 
 
 @torch.jit.script
 def compute_rewards(

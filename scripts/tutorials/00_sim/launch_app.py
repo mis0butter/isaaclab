@@ -15,6 +15,8 @@ This script demonstrates how to run IsaacSim via the AppLauncher
 
 """Launch Isaac Sim Simulator first."""
 
+# ====================================================================== 
+# ====================================================================== 
 
 import argparse
 
@@ -23,6 +25,7 @@ from isaaclab.app import AppLauncher
 # create argparser
 parser = argparse.ArgumentParser(description="Tutorial on running IsaacSim via the AppLauncher.")
 parser.add_argument("--size", type=float, default=1.0, help="Side-length of cuboid")
+
 # SimulationApp arguments https://docs.omniverse.nvidia.com/py/isaacsim/source/isaacsim.simulation_app/docs/index.html?highlight=simulationapp#isaacsim.simulation_app.SimulationApp
 parser.add_argument(
     "--width", type=int, default=1280, help="Width of the viewport and generated images. Defaults to 1280"
@@ -33,8 +36,10 @@ parser.add_argument(
 
 # append AppLauncher cli args
 AppLauncher.add_app_launcher_args(parser)
+
 # parse the arguments
 args_cli = parser.parse_args()
+
 # launch omniverse app
 app_launcher = AppLauncher(args_cli)
 simulation_app = app_launcher.app
@@ -43,9 +48,12 @@ simulation_app = app_launcher.app
 
 import isaaclab.sim as sim_utils
 
+# ====================================================================== 
+# ====================================================================== 
 
 def design_scene():
     """Designs the scene by spawning ground plane, light, objects and meshes from usd files."""
+
     # Ground-plane
     cfg_ground = sim_utils.GroundPlaneCfg()
     cfg_ground.func("/World/defaultGroundPlane", cfg_ground)
@@ -65,6 +73,8 @@ def design_scene():
     # Spawn cuboid, altering translation on the z-axis to scale to its size
     cfg_cuboid.func("/World/Object", cfg_cuboid, translation=(0.0, 0.0, args_cli.size / 2))
 
+# ====================================================================== 
+# ====================================================================== 
 
 def main():
     """Main function."""
@@ -72,6 +82,7 @@ def main():
     # Initialize the simulation context
     sim_cfg = sim_utils.SimulationCfg(dt=0.01, device=args_cli.device)
     sim = sim_utils.SimulationContext(sim_cfg)
+
     # Set main camera
     sim.set_camera_view([2.0, 0.0, 2.5], [-0.5, 0.0, 0.5])
 
@@ -88,6 +99,8 @@ def main():
         # perform step
         sim.step()
 
+# ====================================================================== 
+# ====================================================================== 
 
 if __name__ == "__main__":
     # run the main function

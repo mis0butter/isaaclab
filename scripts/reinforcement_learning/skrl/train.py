@@ -12,10 +12,16 @@ a more user-friendly way.
 
 """Launch Isaac Sim Simulator first."""
 
+# ====================================================================== 
+# ====================================================================== 
+
 import argparse
 import sys
 
 from isaaclab.app import AppLauncher
+
+# ====================================================================== 
+# ====================================================================== 
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Train an RL agent with skrl.")
@@ -45,6 +51,9 @@ parser.add_argument(
     help="The RL algorithm used for training the skrl agent.",
 )
 
+# ====================================================================== 
+# ====================================================================== 
+
 # append AppLauncher cli args
 AppLauncher.add_app_launcher_args(parser)
 # parse the arguments
@@ -62,6 +71,9 @@ simulation_app = app_launcher.app
 
 """Rest everything follows."""
 
+# ====================================================================== 
+# ====================================================================== 
+
 import gymnasium as gym
 import os
 import random
@@ -69,6 +81,9 @@ from datetime import datetime
 
 import skrl
 from packaging import version
+
+# ====================================================================== 
+# ====================================================================== 
 
 # check for minimum supported skrl version
 SKRL_VERSION = "1.4.2"
@@ -100,12 +115,14 @@ from isaaclab_rl.skrl import SkrlVecEnvWrapper
 import isaaclab_tasks  # noqa: F401
 from isaaclab_tasks.utils.hydra import hydra_task_config
 
-# PLACEHOLDER: Extension template (do not remove this comment)
+# PLACEHOLDER: Extension template (do not remove this comment)  
+
+# ====================================================================== 
+# ====================================================================== 
 
 # config shortcuts
 algorithm = args_cli.algorithm.lower()
 agent_cfg_entry_point = "skrl_cfg_entry_point" if algorithm in ["ppo"] else f"skrl_{algorithm}_cfg_entry_point"
-
 
 @hydra_task_config(args_cli.task, agent_cfg_entry_point)
 def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agent_cfg: dict):
@@ -195,6 +212,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # close the simulator
     env.close()
 
+# ====================================================================== 
+# ====================================================================== 
 
 if __name__ == "__main__":
     # run the main function

@@ -19,16 +19,14 @@ from isaaclab.utils import configclass
 
 import isaaclab_tasks.manager_based.classic.cartpole.mdp as mdp
 
-##
+# ---------------------------------- 
 # Pre-defined configs
-##
+# ---------------------------------- 
 from isaaclab_assets.robots.cartpole import CARTPOLE_CFG  # isort:skip
 
-
-##
+# ====================================================================== 
 # Scene definition
-##
-
+# ====================================================================== 
 
 @configclass
 class CartpoleSceneCfg(InteractiveSceneCfg):
@@ -49,11 +47,9 @@ class CartpoleSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.DomeLightCfg(color=(0.9, 0.9, 0.9), intensity=500.0),
     )
 
-
-##
+# ---------------------------------- 
 # MDP settings
-##
-
+# ---------------------------------- 
 
 @configclass
 class ActionsCfg:
@@ -61,6 +57,9 @@ class ActionsCfg:
 
     joint_effort = mdp.JointEffortActionCfg(asset_name="robot", joint_names=["slider_to_cart"], scale=100.0)
 
+# ---------------------------------- 
+# Observations
+# ---------------------------------- 
 
 @configclass
 class ObservationsCfg:
@@ -81,6 +80,9 @@ class ObservationsCfg:
     # observation groups
     policy: PolicyCfg = PolicyCfg()
 
+# ---------------------------------- 
+# Events
+# ---------------------------------- 
 
 @configclass
 class EventCfg:
@@ -107,6 +109,9 @@ class EventCfg:
         },
     )
 
+# ---------------------------------- 
+# Rewards
+# ---------------------------------- 
 
 @configclass
 class RewardsCfg:
@@ -135,6 +140,9 @@ class RewardsCfg:
         params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"])},
     )
 
+# ---------------------------------- 
+# Terminations
+# ---------------------------------- 
 
 @configclass
 class TerminationsCfg:
@@ -148,11 +156,9 @@ class TerminationsCfg:
         params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]), "bounds": (-3.0, 3.0)},
     )
 
-
-##
+# ---------------------------------- 
 # Environment configuration
-##
-
+# ---------------------------------- 
 
 @configclass
 class CartpoleEnvCfg(ManagerBasedRLEnvCfg):
