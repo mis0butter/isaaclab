@@ -11,9 +11,12 @@ from isaaclab.actuators import ImplicitActuatorCfg
 from isaaclab.assets import ArticulationCfg
 from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
 
-##
+# ====================================================================== 
+# ====================================================================== 
+
+# ---------------------------------- 
 # Configuration
-##
+# ---------------------------------- 
 
 CARTPOLE_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
