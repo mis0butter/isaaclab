@@ -41,6 +41,9 @@ import torch
 
 from isaaclab.envs import ManagerBasedRLEnv
 
+# ---------------------------------- 
+# Pre-defined configs
+# ---------------------------------- 
 from isaaclab_tasks.manager_based.classic.cartpole.cartpole_env_cfg import CartpoleEnvCfg
 
 # ====================================================================== 

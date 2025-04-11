@@ -82,7 +82,8 @@ def design_scene():
     cone_object = RigidObject(cfg=cone_cfg)
 
     # return the scene information
-    scene_entities = {"cone": cone_object}
+    scene_entities = {"cone": cone_object} 
+    
     return scene_entities, origins
 
 # ====================================================================== 
