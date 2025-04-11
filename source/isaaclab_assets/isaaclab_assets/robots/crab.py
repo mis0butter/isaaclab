@@ -157,7 +157,7 @@ CRAB_CFG = ArticulationCfg(
             damping=10.0,
         ),
         "bl_cluster3": ImplicitActuatorCfg(
-            joint_names_expr=["back_left__cluster_3_roll", "back_left__cluster_3_pitch", "back_left__cluster_3_wrist"],
+            joint_names_expr=["arm4_j5", "arm4_j6", "arm4_j7"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
