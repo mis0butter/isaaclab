@@ -20,7 +20,8 @@ from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
 
 CRAB_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab/crab.usd",
+        usd_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab/crab/crab.usd",
+        # usd_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab_.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
@@ -39,58 +40,58 @@ CRAB_CFG = ArticulationCfg(
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.5),  # Raised slightly off ground
         joint_pos={
-            # Front right leg
-            "front_right__cluster_1_roll": 0.0,
-            "front_right__cluster_1_pitch": -0.5,
-            "front_right__cluster_2_roll": 0.0,
-            "front_right__cluster_2_pitch": -0.5,
-            "front_right__cluster_3_roll": 0.0,
-            "front_right__cluster_3_pitch": -0.5,
-            "front_right__cluster_3_wrist": 0.0,
             # Front left leg
-            "front_left__cluster_1_roll": 0.0,
-            "front_left__cluster_1_pitch": -0.5,
-            "front_left__cluster_2_roll": 0.0,
-            "front_left__cluster_2_pitch": -0.5,
-            "front_left__cluster_3_roll": 0.0,
-            "front_left__cluster_3_pitch": -0.5,
-            "front_left__cluster_3_wrist": 0.0,
-            # Back right leg
-            "back_right__cluster_1_roll": 0.0,
-            "back_right__cluster_1_pitch": -0.5,
-            "back_right__cluster_2_roll": 0.0,
-            "back_right__cluster_2_pitch": -0.5,
-            "back_right__cluster_3_roll": 0.0,
-            "back_right__cluster_3_pitch": -0.5,
-            "back_right__cluster_3_wrist": 0.0,
+            "arm1_j1": 0.0,
+            "arm1_j2": -0.5,
+            "arm1_j3": 0.0,
+            "arm1_j4": -0.5,
+            "arm1_j5": 0.0,
+            "arm1_j6": -0.5,
+            "arm1_j7": 0.0,
             # Back left leg
-            "back_left__cluster_1_roll": 0.0,
-            "back_left__cluster_1_pitch": -0.5,
-            "back_left__cluster_2_roll": 0.0,
-            "back_left__cluster_2_pitch": -0.5,
-            "back_left__cluster_3_roll": 0.0,
-            "back_left__cluster_3_pitch": -0.5,
-            "back_left__cluster_3_wrist": 0.0,
+            "arm2_j1": 0.0,
+            "arm2_j2": -0.5,
+            "arm2_j3": 0.0,
+            "arm2_j4": -0.5,
+            "arm2_j5": 0.0,
+            "arm2_j6": -0.5,
+            "arm2_j7": 0.0,
+            # Back right leg
+            "arm3_j1": 0.0,
+            "arm3_j2": -0.5,
+            "arm3_j3": 0.0,
+            "arm3_j4": -0.5,
+            "arm3_j5": 0.0,
+            "arm3_j6": -0.5,
+            "arm3_j7": 0.0,
+            # Front right leg
+            "arm4_j1": 0.0,
+            "arm4_j2": -0.5,
+            "arm4_j3": 0.0,
+            "arm4_j4": -0.5,
+            "arm4_j5": 0.0,
+            "arm4_j6": -0.5,
+            "arm4_j7": 0.0,
         }
     ),
     actuators={
         # Front right leg actuators
         "fr_cluster1": ImplicitActuatorCfg(
-            joint_names_expr=["front_right__cluster_1_roll", "front_right__cluster_1_pitch"],
+            joint_names_expr=["arm1_j1", "arm1_j2"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=10.0,
         ),
         "fr_cluster2": ImplicitActuatorCfg(
-            joint_names_expr=["front_right__cluster_2_roll", "front_right__cluster_2_pitch"],
+            joint_names_expr=["arm1_j3", "arm1_j4"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=10.0,
         ),
         "fr_cluster3": ImplicitActuatorCfg(
-            joint_names_expr=["front_right__cluster_3_roll", "front_right__cluster_3_pitch", "front_right__cluster_3_wrist"],
+            joint_names_expr=["arm1_j5", "arm1_j6", "arm1_j7"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
@@ -98,21 +99,21 @@ CRAB_CFG = ArticulationCfg(
         ),
         # Front left leg actuators
         "fl_cluster1": ImplicitActuatorCfg(
-            joint_names_expr=["front_left__cluster_1_roll", "front_left__cluster_1_pitch"],
+            joint_names_expr=["arm2_j1", "arm2_j2"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=10.0,
         ),
         "fl_cluster2": ImplicitActuatorCfg(
-            joint_names_expr=["front_left__cluster_2_roll", "front_left__cluster_2_pitch"],
+            joint_names_expr=["arm2_j3", "arm2_j4"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=10.0,
         ),
         "fl_cluster3": ImplicitActuatorCfg(
-            joint_names_expr=["front_left__cluster_3_roll", "front_left__cluster_3_pitch", "front_left__cluster_3_wrist"],
+            joint_names_expr=["arm2_j5", "arm2_j6", "arm2_j7"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
@@ -120,21 +121,21 @@ CRAB_CFG = ArticulationCfg(
         ),
         # Back right leg actuators
         "br_cluster1": ImplicitActuatorCfg(
-            joint_names_expr=["back_right__cluster_1_roll", "back_right__cluster_1_pitch"],
+            joint_names_expr=["arm3_j1", "arm3_j2"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=10.0,
         ),
         "br_cluster2": ImplicitActuatorCfg(
-            joint_names_expr=["back_right__cluster_2_roll", "back_right__cluster_2_pitch"],
+            joint_names_expr=["arm3_j3", "arm3_j4"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=10.0,
         ),
         "br_cluster3": ImplicitActuatorCfg(
-            joint_names_expr=["back_right__cluster_3_roll", "back_right__cluster_3_pitch", "back_right__cluster_3_wrist"],
+            joint_names_expr=["arm3_j5", "arm3_j6", "arm3_j7"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
@@ -142,14 +143,14 @@ CRAB_CFG = ArticulationCfg(
         ),
         # Back left leg actuators
         "bl_cluster1": ImplicitActuatorCfg(
-            joint_names_expr=["back_left__cluster_1_roll", "back_left__cluster_1_pitch"],
+            joint_names_expr=["arm4_j1", "arm4_j2"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=10.0,
         ),
         "bl_cluster2": ImplicitActuatorCfg(
-            joint_names_expr=["back_left__cluster_2_roll", "back_left__cluster_2_pitch"],
+            joint_names_expr=["arm4_j3", "arm4_j4"],
             effort_limit=400.0,
             velocity_limit=100.0,
             stiffness=0.0,
