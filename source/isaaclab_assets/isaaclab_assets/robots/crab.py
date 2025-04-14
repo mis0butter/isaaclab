@@ -67,6 +67,7 @@ CRAB_CFG = ArticulationCfg(
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.5),  # Raised slightly off ground
         joint_pos={
+
             # Front left leg
             "arm1_j1": 0.0,
             "arm1_j2": -0.5,
@@ -75,6 +76,7 @@ CRAB_CFG = ArticulationCfg(
             "arm1_j5": 0.0,
             "arm1_j6": -0.5,
             "arm1_j7": 0.0,
+
             # Back left leg
             "arm2_j1": 0.0,
             "arm2_j2": -0.5,
@@ -83,6 +85,7 @@ CRAB_CFG = ArticulationCfg(
             "arm2_j5": 0.0,
             "arm2_j6": -0.5,
             "arm2_j7": 0.0,
+
             # Back right leg
             "arm3_j1": 0.0,
             "arm3_j2": -0.5,
@@ -91,6 +94,7 @@ CRAB_CFG = ArticulationCfg(
             "arm3_j5": 0.0,
             "arm3_j6": -0.5,
             "arm3_j7": 0.0,
+            
             # Front right leg
             "arm4_j1": 0.0,
             "arm4_j2": -0.5,

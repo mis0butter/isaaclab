@@ -68,7 +68,6 @@ class ActionsCfg:
     # gripper_action: mdp.JointEffortActionCfg = mdp.JointEffortActionCfg(
     #         asset_name="robot", joint_names=["plato_.*"], scale=0.1
     #     ) 
-    
 
 
 # ====================================================================== 
@@ -103,37 +102,60 @@ class ObservationsCfg:
 class EventCfg:
     """Configuration for events."""
 
-    # on startup
-    add_pole_mass = EventTerm(
+    # # on startup
+    # add_pole_mass = EventTerm(
+    #     func=mdp.randomize_rigid_body_mass,
+    #     mode="startup",
+    #     params={
+    #         "asset_cfg": SceneEntityCfg("robot", body_names=["pole"]),
+    #         "mass_distribution_params": (0.1, 0.5),
+    #         "operation": "add",
+    #     },
+    # )
+    add_base_link_mass = EventTerm(
         func=mdp.randomize_rigid_body_mass,
         mode="startup",
         params={
-            "asset_cfg": SceneEntityCfg("robot", body_names=["pole"]),
-            "mass_distribution_params": (0.1, 0.5),
+            "asset_cfg": SceneEntityCfg("robot", body_names=["base_link"]), 
+            "mass_distribution_params": (0.1, 0.5), 
             "operation": "add",
         },
     )
 
     # on reset
-    reset_crab_position = EventTerm(
+    reset_joints_position = EventTerm(
         func=mdp.reset_joints_by_offset,
         mode="reset",
         params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_crab"]),
+            "asset_cfg": SceneEntityCfg("robot", joint_names=["arm1_j1", "arm1_j2", "arm1_j3", "arm1_j4", "arm1_j5", "arm1_j6", "arm1_j7",
+                "arm2_j1", "arm2_j2", "arm2_j3", "arm2_j4", "arm2_j5", "arm2_j6", "arm2_j7",
+                "arm3_j1", "arm3_j2", "arm3_j3", "arm3_j4", "arm3_j5", "arm3_j6", "arm3_j7",
+                "arm4_j1", "arm4_j2", "arm4_j3", "arm4_j4", "arm4_j5", "arm4_j6", "arm4_j7"
+            ]),
             "position_range": (-1.0, 1.0),
             "velocity_range": (-0.1, 0.1),
         },
-    )
+    ) 
 
-    reset_pole_position = EventTerm(
+    reset_base_link_position = EventTerm(
         func=mdp.reset_joints_by_offset,
         mode="reset",
         params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=["crab_to_pole"]),
+            "asset_cfg": SceneEntityCfg("robot", body_names=["base_link"]),
             "position_range": (-0.125 * math.pi, 0.125 * math.pi),
             "velocity_range": (-0.01 * math.pi, 0.01 * math.pi),
         },
     )
+
+    # reset_pole_position = EventTerm(
+    #     func=mdp.reset_joints_by_offset,
+    #     mode="reset",
+    #     params={
+    #         "asset_cfg": SceneEntityCfg("robot", joint_names=["crab_to_pole"]),
+    #         "position_range": (-0.125 * math.pi, 0.125 * math.pi),
+    #         "velocity_range": (-0.01 * math.pi, 0.01 * math.pi),
+    #     },
+    # )
 
 # ====================================================================== 
 # ====================================================================== 
@@ -193,8 +215,8 @@ def main():
                 print("[INFO]: Resetting environment...")
 
             # sample random actions
-            # joint_efforts = torch.randn_like(env.action_manager.action)
-            joint_efforts = torch.zeros_like(env.action_manager.action) 
+            joint_efforts = torch.randn_like(env.action_manager.action) * 5.0 
+            # joint_efforts = torch.zeros_like(env.action_manager.action) 
 
             # print joint_efforts
             print("[INFO]: Joint efforts: ", joint_efforts)

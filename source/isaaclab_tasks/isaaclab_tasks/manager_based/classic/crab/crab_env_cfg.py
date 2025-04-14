@@ -129,24 +129,33 @@ class RewardsCfg:
     # (2) Failure penalty
     terminating = RewTerm(func=mdp.is_terminated, weight=-2.0)
     
-    # (3) Primary task: keep pole upright
-    pole_pos = RewTerm(
+    # # (3) Primary task: keep pole upright
+    # pole_pos = RewTerm(
+    #     func=mdp.joint_pos_target_l2,
+    #     weight=-1.0,
+    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]), "target": 0.0},
+    # )
+
+    # (3) Primary task: make crab base_link rotate +90 degrees 
+    base_link_pos = RewTerm(
         func=mdp.joint_pos_target_l2,
         weight=-1.0,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]), "target": 0.0},
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["base_link"]), "target": 0.0},
     )
-    # (4) Shaping tasks: lower cart velocity
-    cart_vel = RewTerm(
-        func=mdp.joint_vel_l1,
-        weight=-0.01,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"])},
-    )
-    # (5) Shaping tasks: lower pole angular velocity
-    pole_vel = RewTerm(
-        func=mdp.joint_vel_l1,
-        weight=-0.005,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"])},
-    )
+
+    # # (4) Shaping tasks: lower cart velocity
+    # cart_vel = RewTerm(
+    #     func=mdp.joint_vel_l1,
+    #     weight=-0.01,
+    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"])},
+    # )
+    
+    # # (5) Shaping tasks: lower pole angular velocity
+    # pole_vel = RewTerm(
+    #     func=mdp.joint_vel_l1,
+    #     weight=-0.005,
+    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"])},
+    # )
 
 # ---------------------------------- 
 # Terminations
@@ -158,10 +167,17 @@ class TerminationsCfg:
 
     # (1) Time out
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
-    # (2) Cart out of bounds
-    cart_out_of_bounds = DoneTerm(
+
+    # # (2) Cart out of bounds
+    # cart_out_of_bounds = DoneTerm(
+    #     func=mdp.joint_pos_out_of_manual_limit,
+    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]), "bounds": (-3.0, 3.0)},
+    # )
+
+    # (2) Base link out of bounds
+    base_link_out_of_bounds = DoneTerm(
         func=mdp.joint_pos_out_of_manual_limit,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]), "bounds": (-3.0, 3.0)},
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["base_link"]), "bounds": (-3.0, 3.0)},
     )
 
 # ---------------------------------- 
