@@ -55,7 +55,7 @@ class CrabSceneCfg(InteractiveSceneCfg):
 class ActionsCfg:
     """Action specifications for the MDP."""
 
-    joint_effort = mdp.JointEffortActionCfg(asset_name="robot", joint_names=["slider_to_cart"], scale=100.0)
+    joint_effort = mdp.JointEffortActionCfg(asset_name="robot", joint_names=["arm1_j1"], scale=100.0)
 
 # ---------------------------------- 
 # Observations
@@ -89,25 +89,31 @@ class EventCfg:
     """Configuration for events."""
 
     # reset
-    reset_cart_position = EventTerm(
+    reset_crab_position = EventTerm(
         func=mdp.reset_joints_by_offset,
         mode="reset",
         params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]),
+            # "asset_cfg": SceneEntityCfg("robot", joint_names=["arm1_j1", "arm1_j2"]),
+            "asset_cfg": SceneEntityCfg("robot", joint_names=[
+                "arm1_j1", "arm1_j2", "arm1_j3", "arm1_j4", "arm1_j5", "arm1_j6", "arm1_j7",
+                "arm2_j1", "arm2_j2", "arm2_j3", "arm2_j4", "arm2_j5", "arm2_j6", "arm2_j7",
+                "arm3_j1", "arm3_j2", "arm3_j3", "arm3_j4", "arm3_j5", "arm3_j6", "arm3_j7",
+                "arm4_j1", "arm4_j2", "arm4_j3", "arm4_j4", "arm4_j5", "arm4_j6", "arm4_j7"
+            ]),
             "position_range": (-1.0, 1.0),
             "velocity_range": (-0.5, 0.5),
         },
     )
 
-    reset_pole_position = EventTerm(
-        func=mdp.reset_joints_by_offset,
-        mode="reset",
-        params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]),
-            "position_range": (-0.25 * math.pi, 0.25 * math.pi),
-            "velocity_range": (-0.25 * math.pi, 0.25 * math.pi),
-        },
-    )
+    # reset_pole_position = EventTerm(
+    #     func=mdp.reset_joints_by_offset,
+    #     mode="reset",
+    #     params={
+    #         "asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]),
+    #         "position_range": (-0.25 * math.pi, 0.25 * math.pi),
+    #         "velocity_range": (-0.25 * math.pi, 0.25 * math.pi),
+    #     },
+    # )
 
 # ---------------------------------- 
 # Rewards
@@ -168,10 +174,12 @@ class CrabEnvCfg(ManagerBasedRLEnvCfg):
 
     # Scene settings
     scene: CrabSceneCfg = CrabSceneCfg(num_envs=4096, env_spacing=4.0)
+
     # Basic settings
     observations: ObservationsCfg = ObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
     events: EventCfg = EventCfg()
+
     # MDP settings
     rewards: RewardsCfg = RewardsCfg()
     terminations: TerminationsCfg = TerminationsCfg()
@@ -179,11 +187,14 @@ class CrabEnvCfg(ManagerBasedRLEnvCfg):
     # Post initialization
     def __post_init__(self) -> None:
         """Post initialization."""
+
         # general settings
         self.decimation = 2
         self.episode_length_s = 5
+
         # viewer settings
         self.viewer.eye = (8.0, 0.0, 5.0)
+
         # simulation settings
         self.sim.dt = 1 / 120
         self.sim.render_interval = self.decimation

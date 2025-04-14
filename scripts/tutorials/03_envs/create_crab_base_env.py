@@ -4,12 +4,12 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 """
-This script demonstrates how to create a simple environment with a cartpole. It combines the concepts of
+This script demonstrates how to create a simple environment with a crabpole. It combines the concepts of
 scene, action, observation and event managers to create an environment.
 
 .. code-block:: bash
 
-    ./isaaclab.sh -p scripts/tutorials/03_envs/create_cartpole_base_env.py --num_envs 32
+    ./isaaclab.sh -p scripts/tutorials/03_envs/create_crabpole_base_env.py --num_envs 32
 
 """
 
@@ -23,7 +23,7 @@ import argparse
 from isaaclab.app import AppLauncher
 
 # add argparse arguments
-parser = argparse.ArgumentParser(description="Tutorial on creating a cartpole base environment.")
+parser = argparse.ArgumentParser(description="Tutorial on creating a crabpole base environment.")
 parser.add_argument("--num_envs", type=int, default=16, help="Number of environments to spawn.")
 
 # append AppLauncher cli args
@@ -51,7 +51,7 @@ from isaaclab.utils import configclass
 # ---------------------------------- 
 # Pre-defined configs
 # ---------------------------------- 
-from isaaclab_tasks.manager_based.classic.cartpole.cartpole_env_cfg import CartpoleSceneCfg
+from isaaclab_tasks.manager_based.classic.crab.crab_env_cfg import CrabSceneCfg
 
 # ====================================================================== 
 # ====================================================================== 
@@ -60,7 +60,16 @@ from isaaclab_tasks.manager_based.classic.cartpole.cartpole_env_cfg import Cartp
 class ActionsCfg:
     """Action specifications for the environment."""
 
-    joint_efforts = mdp.JointEffortActionCfg(asset_name="robot", joint_names=["slider_to_cart"], scale=5.0)
+    joint_efforts = mdp.JointEffortActionCfg(asset_name="robot", joint_names=["arm1_j1"], scale=5.0)
+
+    # arm_action: mdp.JointPositionActionCfg | mdp.RelativeJointPositionActionCfg | mdp.DifferentialInverseKinematicsActionCfg = mdp.RelativeJointPositionActionCfg(
+    #         asset_name="robot", joint_names=["virtual_joint.*"], scale=0.1, # use_default_offset=True
+    #     )
+    # gripper_action: mdp.JointEffortActionCfg = mdp.JointEffortActionCfg(
+    #         asset_name="robot", joint_names=["plato_.*"], scale=0.1
+    #     ) 
+    
+
 
 # ====================================================================== 
 # ====================================================================== 
@@ -106,11 +115,11 @@ class EventCfg:
     )
 
     # on reset
-    reset_cart_position = EventTerm(
+    reset_crab_position = EventTerm(
         func=mdp.reset_joints_by_offset,
         mode="reset",
         params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]),
+            "asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_crab"]),
             "position_range": (-1.0, 1.0),
             "velocity_range": (-0.1, 0.1),
         },
@@ -120,7 +129,7 @@ class EventCfg:
         func=mdp.reset_joints_by_offset,
         mode="reset",
         params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]),
+            "asset_cfg": SceneEntityCfg("robot", joint_names=["crab_to_pole"]),
             "position_range": (-0.125 * math.pi, 0.125 * math.pi),
             "velocity_range": (-0.01 * math.pi, 0.01 * math.pi),
         },
@@ -130,11 +139,11 @@ class EventCfg:
 # ====================================================================== 
 
 @configclass
-class CartpoleEnvCfg(ManagerBasedEnvCfg):
-    """Configuration for the cartpole environment."""
+class CrabEnvCfg(ManagerBasedEnvCfg):
+    """Configuration for the crab environment."""
 
     # Scene settings
-    scene = CartpoleSceneCfg(num_envs=1024, env_spacing=2.5)
+    scene = CrabSceneCfg(num_envs=1024, env_spacing=2.5)
 
     # Basic settings
     observations = ObservationsCfg()
@@ -164,7 +173,7 @@ def main():
     """Main function."""
 
     # parse the arguments
-    env_cfg = CartpoleEnvCfg()
+    env_cfg = CrabEnvCfg()
     env_cfg.scene.num_envs = args_cli.num_envs
     env_cfg.sim.device = args_cli.device
 
@@ -184,7 +193,11 @@ def main():
                 print("[INFO]: Resetting environment...")
 
             # sample random actions
-            joint_efforts = torch.randn_like(env.action_manager.action)
+            # joint_efforts = torch.randn_like(env.action_manager.action)
+            joint_efforts = torch.zeros_like(env.action_manager.action) 
+
+            # print joint_efforts
+            print("[INFO]: Joint efforts: ", joint_efforts)
 
             # step the environment
             obs, _ = env.step(joint_efforts)

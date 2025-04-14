@@ -10,6 +10,7 @@ import isaaclab.sim as sim_utils
 from isaaclab.actuators import ImplicitActuatorCfg
 from isaaclab.assets import ArticulationCfg
 from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
+from isaaclab.sim import UrdfFileCfg 
 
 # ====================================================================== 
 # ====================================================================== 
@@ -37,6 +38,19 @@ CRAB_CFG = ArticulationCfg(
             stabilization_threshold=0.001,
         ),
     ),
+    # spawn=UrdfFileCfg(
+    #     urdf_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab/crab.urdf",
+    #     make_instanceable=True,  # Optional, good practice
+    #     fix_base_link=True,      # Optional, if you want the robot to be fixed
+    #     merge_fixed_joints=True, # Optional, simplifies robot if it has fixed joints
+    #     conv_cfg=UrdfConverterCfg(),
+    #     rigid_props=sim_utils.RigidBodyPropertiesCfg(
+    #         rigid_body_enabled=True,
+    #         max_linear_velocity=1000.0,
+    #         max_angular_velocity=1000.0,
+    #         max_depenetration_velocity=100.0,
+    #     ),
+    # ),
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.5),  # Raised slightly off ground
         joint_pos={
