@@ -50,6 +50,7 @@ CRAB_CFG = ArticulationCfg(
         ),
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
+            disable_gravity=True,
             max_linear_velocity=1000.0,
             max_angular_velocity=1000.0,
             max_depenetration_velocity=100.0,
