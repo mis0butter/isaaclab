@@ -20,9 +20,34 @@ from isaaclab.sim import UrdfFileCfg
 # ---------------------------------- 
 
 CRAB_CFG = ArticulationCfg(
-    spawn=sim_utils.UsdFileCfg(
-        usd_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab/crab/crab.usd",
-        # usd_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab_.usd",
+    # spawn=sim_utils.UsdFileCfg(
+    #     usd_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab/crab/crab.usd",
+    #     # usd_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab_.usd",
+    #     rigid_props=sim_utils.RigidBodyPropertiesCfg(
+    #         rigid_body_enabled=True,
+    #         max_linear_velocity=1000.0,
+    #         max_angular_velocity=1000.0,
+    #         max_depenetration_velocity=100.0,
+    #         enable_gyroscopic_forces=True,
+    #     ),
+    #     articulation_props=sim_utils.ArticulationRootPropertiesCfg(
+    #         enabled_self_collisions=False,
+    #         solver_position_iteration_count=4,
+    #         solver_velocity_iteration_count=1,
+    #         sleep_threshold=0.005,
+    #         stabilization_threshold=0.001,
+    #     ),
+    # ),
+    spawn=sim_utils.UrdfFileCfg(
+        asset_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab/crab.urdf",  # Replace with your URDF file path
+        fix_base=False,
+        joint_drive=sim_utils.UrdfConverterCfg.JointDriveCfg(
+            target_type="position",
+            gains=sim_utils.UrdfConverterCfg.JointDriveCfg.PDGainsCfg(
+                stiffness=400.0,
+                damping=10.0
+            )
+        ),
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
@@ -38,19 +63,6 @@ CRAB_CFG = ArticulationCfg(
             stabilization_threshold=0.001,
         ),
     ),
-    # spawn=UrdfFileCfg(
-    #     urdf_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab/crab.urdf",
-    #     make_instanceable=True,  # Optional, good practice
-    #     fix_base_link=True,      # Optional, if you want the robot to be fixed
-    #     merge_fixed_joints=True, # Optional, simplifies robot if it has fixed joints
-    #     conv_cfg=UrdfConverterCfg(),
-    #     rigid_props=sim_utils.RigidBodyPropertiesCfg(
-    #         rigid_body_enabled=True,
-    #         max_linear_velocity=1000.0,
-    #         max_angular_velocity=1000.0,
-    #         max_depenetration_velocity=100.0,
-    #     ),
-    # ),
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.5),  # Raised slightly off ground
         joint_pos={
