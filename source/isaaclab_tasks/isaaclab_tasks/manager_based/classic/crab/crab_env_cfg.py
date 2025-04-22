@@ -136,19 +136,31 @@ class RewardsCfg:
     #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]), "target": 0.0},
     # )
 
-    # (3) Primary task: make crab base_link rotate +90 degrees 
-    base_link_pos = RewTerm(
+    # (3) Primary task: make crab rotate +90 degrees through coordinated leg movement
+    # We'll need to use the first joint of each leg (arm*_j1) since these are the X-axis rotating joints
+    leg_coordination = RewTerm(
         func=mdp.joint_pos_target_l2,
         weight=-1.0,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["base_link"]), "target": 0.0},
+        params={
+            "asset_cfg": SceneEntityCfg(
+                "robot", 
+                joint_names=["arm1_j1", "arm2_j1", "arm3_j1", "arm4_j1"]
+            ), 
+            "target": 1.57  # +90 degrees in radians
+        },
     )
 
-    # # (4) Shaping tasks: lower cart velocity
-    # cart_vel = RewTerm(
-    #     func=mdp.joint_vel_l1,
-    #     weight=-0.01,
-    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"])},
-    # )
+    # (4) Shaping tasks: lower joint velocities
+    joint_vel = RewTerm(
+        func=mdp.joint_vel_l1,
+        weight=-0.01,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=[
+            "arm1_j1", "arm1_j2", "arm1_j3", "arm1_j4", "arm1_j5", "arm1_j6", "arm1_j7",
+            "arm2_j1", "arm2_j2", "arm2_j3", "arm2_j4", "arm2_j5", "arm2_j6", "arm2_j7",
+            "arm3_j1", "arm3_j2", "arm3_j3", "arm3_j4", "arm3_j5", "arm3_j6", "arm3_j7",
+            "arm4_j1", "arm4_j2", "arm4_j3", "arm4_j4", "arm4_j5", "arm4_j6", "arm4_j7"
+        ])},
+    )
     
     # # (5) Shaping tasks: lower pole angular velocity
     # pole_vel = RewTerm(
@@ -168,16 +180,40 @@ class TerminationsCfg:
     # (1) Time out
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
 
-    # # (2) Cart out of bounds
-    # cart_out_of_bounds = DoneTerm(
-    #     func=mdp.joint_pos_out_of_manual_limit,
-    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]), "bounds": (-3.0, 3.0)},
-    # )
-
-    # (2) Base link out of bounds
-    base_link_out_of_bounds = DoneTerm(
+    # (2) Joint limits out of bounds - X-axis rotating joints
+    joint_limits_x_axis = DoneTerm(
         func=mdp.joint_pos_out_of_manual_limit,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["base_link"]), "bounds": (-3.0, 3.0)},
+        params={
+            "asset_cfg": SceneEntityCfg(
+                "robot", 
+                joint_names=[
+                    # X-axis rotating joints for all arms
+                    "arm1_j1", "arm1_j3", "arm1_j5", "arm1_j7",
+                    "arm2_j1", "arm2_j3", "arm2_j5", "arm2_j7",
+                    "arm3_j1", "arm3_j3", "arm3_j5", "arm3_j7",
+                    "arm4_j1", "arm4_j3", "arm4_j5", "arm4_j7"
+                ]
+            ), 
+            "bounds": (-3.14, 3.14)  # URDF-specified limits for x-axis joints
+        },
+    )
+
+    # (3) Joint limits out of bounds - Y-axis rotating joints
+    joint_limits_y_axis = DoneTerm(
+        func=mdp.joint_pos_out_of_manual_limit,
+        params={
+            "asset_cfg": SceneEntityCfg(
+                "robot", 
+                joint_names=[
+                    # Y-axis rotating joints for all arms
+                    "arm1_j2", "arm1_j4", "arm1_j6",
+                    "arm2_j2", "arm2_j4", "arm2_j6",
+                    "arm3_j2", "arm3_j4", "arm3_j6",
+                    "arm4_j2", "arm4_j4", "arm4_j6"
+                ]
+            ), 
+            "bounds": (-3.14, 0.174)  # URDF-specified limits for y-axis joints
+        },
     )
 
 # ---------------------------------- 
