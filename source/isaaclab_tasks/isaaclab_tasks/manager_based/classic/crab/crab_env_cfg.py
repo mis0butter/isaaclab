@@ -89,31 +89,37 @@ class EventCfg:
     """Configuration for events."""
 
     # reset
-    reset_crab_position = EventTerm(
+    reset_x_position = EventTerm(
         func=mdp.reset_joints_by_offset,
         mode="reset",
         params={
             # "asset_cfg": SceneEntityCfg("robot", joint_names=["arm1_j1", "arm1_j2"]),
             "asset_cfg": SceneEntityCfg("robot", joint_names=[
-                "arm1_j1", "arm1_j2", "arm1_j3", "arm1_j4", "arm1_j5", "arm1_j6", "arm1_j7",
-                "arm2_j1", "arm2_j2", "arm2_j3", "arm2_j4", "arm2_j5", "arm2_j6", "arm2_j7",
-                "arm3_j1", "arm3_j2", "arm3_j3", "arm3_j4", "arm3_j5", "arm3_j6", "arm3_j7",
-                "arm4_j1", "arm4_j2", "arm4_j3", "arm4_j4", "arm4_j5", "arm4_j6", "arm4_j7"
+                "arm1_j1", "arm1_j3", "arm1_j5", "arm1_j7",
+                "arm2_j1", "arm2_j3", "arm2_j5", "arm2_j7",
+                "arm3_j1", "arm3_j3", "arm3_j5", "arm3_j7",
+                "arm4_j1", "arm4_j3", "arm4_j5", "arm4_j7"
             ]),
-            "position_range": (-1.0, 1.0),
+            "position_range": (-3.14, 3.14),
             "velocity_range": (-0.5, 0.5),
         },
     )
 
-    # reset_pole_position = EventTerm(
-    #     func=mdp.reset_joints_by_offset,
-    #     mode="reset",
-    #     params={
-    #         "asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]),
-    #         "position_range": (-0.25 * math.pi, 0.25 * math.pi),
-    #         "velocity_range": (-0.25 * math.pi, 0.25 * math.pi),
-    #     },
-    # )
+    # reset
+    reset_y_position = EventTerm(
+        func=mdp.reset_joints_by_offset,
+        mode="reset",
+        params={
+            # "asset_cfg": SceneEntityCfg("robot", joint_names=["arm1_j1", "arm1_j2"]),
+            "asset_cfg": SceneEntityCfg("robot", joint_names=[
+                "arm1_j2", "arm1_j4", "arm1_j6", 
+                "arm2_j2", "arm2_j4", "arm2_j6", 
+                "arm3_j2", "arm3_j4", "arm3_j6", 
+                "arm4_j2", "arm4_j4", "arm4_j6"             ]),
+            "position_range": (-3.14, 0.0),
+            "velocity_range": (-0.5, 0.5),
+        },
+    )
 
 # ---------------------------------- 
 # Rewards
@@ -144,9 +150,14 @@ class RewardsCfg:
         params={
             "asset_cfg": SceneEntityCfg(
                 "robot", 
-                joint_names=["arm1_j1", "arm2_j1", "arm3_j1", "arm4_j1"]
+                joint_names=[
+                    "arm1_j1", "arm1_j2", "arm1_j3", "arm1_j4", "arm1_j5", "arm1_j6", "arm1_j7",
+                    "arm2_j1", "arm2_j2", "arm2_j3", "arm2_j4", "arm2_j5", "arm2_j6", "arm2_j7",
+                    "arm3_j1", "arm3_j2", "arm3_j3", "arm3_j4", "arm3_j5", "arm3_j6", "arm3_j7",
+                    "arm4_j1", "arm4_j2", "arm4_j3", "arm4_j4", "arm4_j5", "arm4_j6", "arm4_j7"
+                    ]
             ), 
-            "target": 1.57  # +90 degrees in radians
+            "target": 0.0  # +90 degrees in radians
         },
     )
 
@@ -212,7 +223,7 @@ class TerminationsCfg:
                     "arm4_j2", "arm4_j4", "arm4_j6"
                 ]
             ), 
-            "bounds": (-3.14, 0.174)  # URDF-specified limits for y-axis joints
+            "bounds": (-3.14, 0.0)  # URDF-specified limits for y-axis joints
         },
     )
 
