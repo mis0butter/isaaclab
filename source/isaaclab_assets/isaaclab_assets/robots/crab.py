@@ -65,7 +65,7 @@ CRAB_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 0.5),  # Raised slightly off ground
+        pos=(0.0, 0.0, 10.0),  # Raised slightly off ground
         joint_pos={
 
             # Front left leg

@@ -10,7 +10,7 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.sensors import TiledCameraCfg
 from isaaclab.utils import configclass
 
-import isaaclab_tasks.manager_based.classic.crab.mdp as mdp
+import isaaclab_tasks.manager_based.classic.crab.mdp as crab_mdp
 
 from .crab_env_cfg import CrabEnvCfg, CrabSceneCfg
 
@@ -64,7 +64,7 @@ class RGBObservationsCfg:
     class RGBCameraPolicyCfg(ObsGroup):
         """Observations for policy group with RGB images."""
 
-        image = ObsTerm(func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera"), "data_type": "rgb"})
+        image = ObsTerm(func=crab_mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera"), "data_type": "rgb"})
 
         def __post_init__(self):
             self.enable_corruption = False
@@ -82,7 +82,7 @@ class DepthObservationsCfg:
         """Observations for policy group with depth images."""
 
         image = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera"), "data_type": "distance_to_camera"}
+            func=crab_mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera"), "data_type": "distance_to_camera"}
         )
 
     policy: ObsGroup = DepthCameraPolicyCfg()
@@ -97,7 +97,7 @@ class ResNet18ObservationCfg:
         """Observations for policy group with features extracted from RGB images with a frozen ResNet18."""
 
         image = ObsTerm(
-            func=mdp.image_features,
+            func=crab_mdp.image_features,
             params={"sensor_cfg": SceneEntityCfg("tiled_camera"), "data_type": "rgb", "model_name": "resnet18"},
         )
 
@@ -113,7 +113,7 @@ class TheiaTinyObservationCfg:
         """Observations for policy group with features extracted from RGB images with a frozen Theia-Tiny Transformer"""
 
         image = ObsTerm(
-            func=mdp.image_features,
+            func=crab_mdp.image_features,
             params={
                 "sensor_cfg": SceneEntityCfg("tiled_camera"),
                 "data_type": "rgb",

@@ -66,17 +66,17 @@ def main():
         with torch.inference_mode():
 
             # reset
-            if count % 300 == 0:
-                count = 0
-                env.reset()
-                print("-" * 80)
-                print("[INFO]: Resetting environment...")
+            # if count % 60*10 == 0:
+            #     count = 0
+            #     env.reset()
+            #     print("-" * 80)
+            #     print("[INFO]: Resetting environment...")
 
             # sample random actions
             joint_efforts = torch.randn_like(env.action_manager.action)
 
             # step the environment
-            obs, rew, terminated, truncated, info = env.step(joint_efforts)
+            obs, rew, terminated, truncated, info = env.step(0*joint_efforts)
 
             # print current orientation of pole
             print("[Env 0]: Pole joint: ", obs["policy"][0][1].item())
