@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-"""Configuration for a simple Cartpole robot."""
+"""Configuration for a simple test_robot robot."""
 
 
 import isaaclab.sim as sim_utils
@@ -18,9 +18,9 @@ from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
 # Configuration
 # ---------------------------------- 
 
-CARTPOLE_CFG = ArticulationCfg(
+TEST_ROBOT_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{ISAACLAB_NUCLEUS_DIR}/Robots/Classic/Cartpole/cartpole.usd",
+        usd_path=f"{ISAACLAB_NUCLEUS_DIR}/Robots/Classic/TestRobot/test_robot.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
@@ -52,4 +52,4 @@ CARTPOLE_CFG = ArticulationCfg(
         ),
     },
 )
-"""Configuration for a simple Cartpole robot."""
+"""Configuration for a simple test_robot robot."""
