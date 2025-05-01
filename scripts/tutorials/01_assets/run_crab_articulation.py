@@ -47,7 +47,7 @@ from isaaclab.sim import SimulationContext
 # ---------------------------------- 
 # Pre-defined configs
 # ---------------------------------- 
-from isaaclab_assets import CARTPOLE_CFG  # isort:skip
+from isaaclab_assets import CRAB_CFG  # isort:skip
 
 # ====================================================================== 
 # ====================================================================== 
@@ -75,12 +75,12 @@ def design_scene() -> tuple[dict, list[list[float]]]:
     # prim_utils.create_prim("/World/Origin2", "Xform", translation=origins[1])
 
     # Articulation
-    cartpole_cfg = CARTPOLE_CFG.copy()
-    cartpole_cfg.prim_path = "/World/Origin.*/Robot"
-    cartpole = Articulation(cfg=cartpole_cfg)
+    crab_cfg = CRAB_CFG.copy()
+    crab_cfg.prim_path = "/World/Origin.*/Robot"
+    crab = Articulation(cfg=crab_cfg)
 
     # return the scene information
-    scene_entities = {"cartpole": cartpole}
+    scene_entities = {"crab": crab}
 
     return scene_entities, origins
 
@@ -93,7 +93,7 @@ def run_simulator(sim: sim_utils.SimulationContext, entities: dict[str, Articula
     # Extract scene entities
     # note: we only do this here for readability. In general, it is better to access the entities directly from
     #   the dictionary. This dictionary is replaced by the InteractiveScene class in the next tutorial.
-    robot = entities["cartpole"]
+    robot = entities["crab"]
 
     # Define simulation stepping
     sim_dt = sim.get_physics_dt()
@@ -137,9 +137,7 @@ def run_simulator(sim: sim_utils.SimulationContext, entities: dict[str, Articula
         robot.write_data_to_sim()
 
         # Perform step
-        sim.step() 
-
-        import pdb; pdb.set_trace()
+        sim.step()
 
         # Increment counter
         count += 1
