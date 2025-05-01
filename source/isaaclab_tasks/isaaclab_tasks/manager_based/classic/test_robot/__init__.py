@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 """
-Cartpole balancing environment.
+test_robot balancing environment.
 """
 
 import gymnasium as gym
@@ -16,54 +16,54 @@ from . import agents
 ##
 
 gym.register(
-    id="Isaac-Cartpole-v0",
+    id="Isaac-test_robot-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": f"{__name__}.cartpole_env_cfg:CartpoleEnvCfg",
+        "env_cfg_entry_point": f"{__name__}.test_robot_env_cfg:TestRobotEnvCfg",
         "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_ppo_cfg.yaml",
-        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:CartpolePPORunnerCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:test_robotPPORunnerCfg",
         "skrl_cfg_entry_point": f"{agents.__name__}:skrl_ppo_cfg.yaml",
         "sb3_cfg_entry_point": f"{agents.__name__}:sb3_ppo_cfg.yaml",
     },
 )
 
 gym.register(
-    id="Isaac-Cartpole-RGB-v0",
+    id="Isaac-test_robot-RGB-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": f"{__name__}.cartpole_camera_env_cfg:CartpoleRGBCameraEnvCfg",
+        "env_cfg_entry_point": f"{__name__}.test_robot_camera_env_cfg:TestRobotRGBCameraEnvCfg",
         "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_camera_ppo_cfg.yaml",
     },
 )
 
 gym.register(
-    id="Isaac-Cartpole-Depth-v0",
+    id="Isaac-test_robot-Depth-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": f"{__name__}.cartpole_camera_env_cfg:CartpoleDepthCameraEnvCfg",
+        "env_cfg_entry_point": f"{__name__}.test_robot_camera_env_cfg:TestRobotDepthCameraEnvCfg",
         "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_camera_ppo_cfg.yaml",
     },
 )
 
 gym.register(
-    id="Isaac-Cartpole-RGB-ResNet18-v0",
+    id="Isaac-test_robot-RGB-ResNet18-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": f"{__name__}.cartpole_camera_env_cfg:CartpoleResNet18CameraEnvCfg",
+        "env_cfg_entry_point": f"{__name__}.test_robot_camera_env_cfg:TestRobotResNet18CameraEnvCfg",
         "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_feature_ppo_cfg.yaml",
     },
 )
 
 gym.register(
-    id="Isaac-Cartpole-RGB-TheiaTiny-v0",
+    id="Isaac-test_robot-RGB-TheiaTiny-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": f"{__name__}.cartpole_camera_env_cfg:CartpoleTheiaTinyCameraEnvCfg",
+        "env_cfg_entry_point": f"{__name__}.test_robot_camera_env_cfg:TestRobotTheiaTinyCameraEnvCfg",
         "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_feature_ppo_cfg.yaml",
     },
 )
