@@ -17,20 +17,20 @@ from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.utils import configclass
 
-import isaaclab_tasks.manager_based.classic.cartpole.mdp as mdp
+import isaaclab_tasks.manager_based.classic.test_robot.mdp as mdp
 
 # ---------------------------------- 
 # Pre-defined configs
 # ---------------------------------- 
-from isaaclab_assets.robots.cartpole import CARTPOLE_CFG  # isort:skip
+from isaaclab_assets.robots.test_robot import TEST_ROBOT_CFG  # isort:skip
 
 # ====================================================================== 
 # Scene definition
 # ====================================================================== 
 
 @configclass
-class CartpoleSceneCfg(InteractiveSceneCfg):
-    """Configuration for a cart-pole scene."""
+class TestRobotSceneCfg(InteractiveSceneCfg):
+    """Configuration for a test_robot scene."""
 
     # ground plane
     ground = AssetBaseCfg(
@@ -38,8 +38,8 @@ class CartpoleSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.GroundPlaneCfg(size=(100.0, 100.0)),
     )
 
-    # cartpole
-    robot: ArticulationCfg = CARTPOLE_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+    # test_robot
+    robot: ArticulationCfg = TEST_ROBOT_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
     # lights
     dome_light = AssetBaseCfg(
@@ -163,11 +163,11 @@ class TerminationsCfg:
 # ---------------------------------- 
 
 @configclass
-class CartpoleEnvCfg(ManagerBasedRLEnvCfg):
-    """Configuration for the cartpole environment."""
+class TestRobotEnvCfg(ManagerBasedRLEnvCfg):
+    """Configuration for the test_robot environment."""
 
     # Scene settings
-    scene: CartpoleSceneCfg = CartpoleSceneCfg(num_envs=4096, env_spacing=4.0)
+    scene: TestRobotSceneCfg = TestRobotSceneCfg(num_envs=4096, env_spacing=4.0)
     # Basic settings
     observations: ObservationsCfg = ObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
