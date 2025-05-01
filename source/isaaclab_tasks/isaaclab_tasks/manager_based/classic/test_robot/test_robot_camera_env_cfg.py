@@ -10,9 +10,9 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.sensors import TiledCameraCfg
 from isaaclab.utils import configclass
 
-import isaaclab_tasks.manager_based.classic.cartpole.mdp as mdp
+import isaaclab_tasks.manager_based.classic.test_robot.mdp as mdp
 
-from .cartpole_env_cfg import CartpoleEnvCfg, CartpoleSceneCfg
+from .test_robot_env_cfg import TestRobotEnvCfg, TestRobotSceneCfg
 
 ##
 # Scene definition
@@ -20,7 +20,7 @@ from .cartpole_env_cfg import CartpoleEnvCfg, CartpoleSceneCfg
 
 
 @configclass
-class CartpoleRGBCameraSceneCfg(CartpoleSceneCfg):
+class TestRobotRGBCameraSceneCfg(TestRobotSceneCfg):
 
     # add camera to the scene
     tiled_camera: TiledCameraCfg = TiledCameraCfg(
@@ -36,7 +36,7 @@ class CartpoleRGBCameraSceneCfg(CartpoleSceneCfg):
 
 
 @configclass
-class CartpoleDepthCameraSceneCfg(CartpoleSceneCfg):
+class TestRobotDepthCameraSceneCfg(TestRobotSceneCfg):
 
     # add camera to the scene
     tiled_camera: TiledCameraCfg = TiledCameraCfg(
@@ -131,10 +131,10 @@ class TheiaTinyObservationCfg:
 
 
 @configclass
-class CartpoleRGBCameraEnvCfg(CartpoleEnvCfg):
-    """Configuration for the cartpole environment with RGB camera."""
+class TestRobotRGBCameraEnvCfg(TestRobotEnvCfg):
+    """Configuration for the test_robot environment with RGB camera."""
 
-    scene: CartpoleRGBCameraSceneCfg = CartpoleRGBCameraSceneCfg(num_envs=1024, env_spacing=20)
+    scene: TestRobotRGBCameraSceneCfg = TestRobotRGBCameraSceneCfg(num_envs=1024, env_spacing=20)
     observations: RGBObservationsCfg = RGBObservationsCfg()
 
     def __post_init__(self):
@@ -147,10 +147,10 @@ class CartpoleRGBCameraEnvCfg(CartpoleEnvCfg):
 
 
 @configclass
-class CartpoleDepthCameraEnvCfg(CartpoleEnvCfg):
-    """Configuration for the cartpole environment with depth camera."""
+class TestRobotDepthCameraEnvCfg(TestRobotEnvCfg):
+    """Configuration for the test_robot environment with depth camera."""
 
-    scene: CartpoleDepthCameraSceneCfg = CartpoleDepthCameraSceneCfg(num_envs=1024, env_spacing=20)
+    scene: TestRobotDepthCameraSceneCfg = TestRobotDepthCameraSceneCfg(num_envs=1024, env_spacing=20)
     observations: DepthObservationsCfg = DepthObservationsCfg()
 
     def __post_init__(self):
@@ -163,14 +163,14 @@ class CartpoleDepthCameraEnvCfg(CartpoleEnvCfg):
 
 
 @configclass
-class CartpoleResNet18CameraEnvCfg(CartpoleRGBCameraEnvCfg):
-    """Configuration for the cartpole environment with ResNet18 features as observations."""
+class TestRobotResNet18CameraEnvCfg(TestRobotRGBCameraEnvCfg):
+    """Configuration for the test_robot environment with ResNet18 features as observations."""
 
     observations: ResNet18ObservationCfg = ResNet18ObservationCfg()
 
 
 @configclass
-class CartpoleTheiaTinyCameraEnvCfg(CartpoleRGBCameraEnvCfg):
-    """Configuration for the cartpole environment with Theia-Tiny features as observations."""
+class TestRobotTheiaTinyCameraEnvCfg(TestRobotRGBCameraEnvCfg):
+    """Configuration for the test_robot environment with Theia-Tiny features as observations."""
 
     observations: TheiaTinyObservationCfg = TheiaTinyObservationCfg()
