@@ -60,7 +60,7 @@ params:
   load_path: '' # path to the checkpoint to load
 
   config:
-    name: cartpole_camera
+    name: test_robot_camera
     env_name: rlgpu
     device: 'cuda:0'
     device_name: 'cuda:0'
