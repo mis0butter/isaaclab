@@ -64,7 +64,7 @@ CRAB_CFG = ArticulationCfg(
     #     ),
     # ),
     spawn=sim_utils.UrdfFileCfg(
-        asset_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/crab/crab.urdf",  # Replace with your URDF file path
+        asset_path="/home/june/research/IsaacLab/source/isaaclab_assets/data/robots/SSTI/CRABS/crab.urdf",  # Replace with your URDF file path
         fix_base=False,
         joint_drive=sim_utils.UrdfConverterCfg.JointDriveCfg(
             target_type="position",
