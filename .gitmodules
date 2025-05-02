@@ -1,0 +1,3 @@
+[submodule "source/isaaclab_assets/data/robots/SSTI/CRABS"]
+	path = source/isaaclab_assets/data/robots/SSTI/CRABS
+	url = git@github.com:mis0butter/CRABS.git
